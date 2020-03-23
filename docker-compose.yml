@@ -5,16 +5,25 @@ services:
   web:
     image: words
     build: .
-    command: gunicorn -b 0.0.0.0:5000 words.wsgi:app
+    command: flask run --host=0.0.0.0
     env_file:
       - ./.flaskenv
     environment:
-      - DATABASE_URI=localhost
+      - DATABASE_URI=redis
     volumes:
       - ./words:/code/words
       - ./db/:/db/
     ports:
-      - "5000:5000"
+      - 5000:5000
+    depends_on:
+      - redis
+    links:
+      - redis
 
   redis:
     image: redis:alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data:/data

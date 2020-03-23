@@ -9,6 +9,9 @@ verify_ssl = true
 flask = "*"
 redis = "*"
 requests = "*"
+pytest = "*"
+pytest-flask = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

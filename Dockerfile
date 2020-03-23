@@ -14,3 +14,4 @@ RUN pip install -r requirements.txt
 COPY words words/
 
 EXPOSE 5000
+CMD ["flask", "run"]
