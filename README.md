@@ -60,19 +60,18 @@ now the app is available at http://127.0.0.1:5000/
 
 ## Sample API Calls
 
-```
+
 to insert words from text string:
-POST /api/v1/words    body={ "input_type": "text", "data": "Hi! My name is (what?), my name is (who?), my name is Slim Shady"}
+``` POST /api/v1/words    body={ "input_type": "text", "data": "Hi! My name is (what?), my name is (who?), my name is Slim Shady"} ```
 
 to insert words from url:
-POST /api/v1/words    body={ "input_type": "url", "data": "https://jsonplaceholder.typicode.com/todos"}
+``` POST /api/v1/words    body={ "input_type": "url", "data": "https://jsonplaceholder.typicode.com/todos"} ```
 
 to insert words from text file(i already copy some test files to the folder words/tests/test_files):
-POST /api/v1/words    body={ "input_type": "file", "data": "C:\\lemonade\\words\\tests\\test_files\\words3.txt"}
+``` POST /api/v1/words    body={ "input_type": "file", "data": "C:\\lemonade\\words\\tests\\test_files\\words3.txt"} ```
 
 to insert words from text file (this version workd on the docker. just run docker compose and than run this request:
-POST /api/v1/words    body={ "input_type": "file", "data": "./words/tests/test_files/words3.txt"}
+``` POST /api/v1/words    body={ "input_type": "file", "data": "./words/tests/test_files/words3.txt"} ```
 
 to get the total occurrence of a given word:
-GET /api/v1/words/<input_word>  
-```
+``` GET /api/v1/words/<input_word> ```
