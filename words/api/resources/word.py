@@ -1,14 +1,14 @@
 from flask_restful import Resource
 from flask import request
 
-from ...database import db
+from ...database import database
 from words.api.word_service import parse_file, parse_url, parse_text
 
 
 class WordApi(Resource):
 
     def get(self, word):
-        frequncies = db.get_from_db(word)
+        frequncies = database.get_from_db(word)
         if frequncies is None:
             return f"GET word: {word}. not found in the DB"
         return f"GET word: {word}. frequencies: {frequncies}"

@@ -6,14 +6,14 @@ import os
 
 from words.commons import words_parser_common as common
 from words.commons import words_parser_parallel as parallel
-from ..database import db
+from ..database import database
 
 
 def parse_text(data):
     if type(data) != str:
         return "data not a sring"
     words_frequencies = common.get_words_frequencies(data)
-    db.save_to_db(words_frequencies)
+    database.save_to_db(words_frequencies)
     return f"parsed text, dict len: {len(words_frequencies)}"
 
 
@@ -25,7 +25,7 @@ def parse_url(data):
         response = requests.get(url.geturl())
         response.raise_for_status()
         words_frequencies = common.get_words_frequencies(response.text)
-        db.save_to_db(words_frequencies)
+        database.save_to_db(words_frequencies)
         return "saved words from url"
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')  # Python 3.6
@@ -40,5 +40,5 @@ def parse_file(data):
         return "error, cannot read file or file does not exist"
 
     words_frequencies = parallel.read_file_in_parallel(file_name=data)
-    db.save_to_db(words_frequencies)
+    database.save_to_db(words_frequencies)
     return "words from text file saved to db"
