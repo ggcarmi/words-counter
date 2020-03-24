@@ -7,22 +7,14 @@ def parse_words(text):
     return re.sub('[^a-zA-Z]', ' ', text).lower().split()
 
 
-def get_words_frequencies(text):
-    """ return frequencies dict for words in given text """
-    frequencies_dict = {}
-    words = parse_words(text)
-    for word in words:
-        frequencies_dict[word] = frequencies_dict.get(word, 0) + 1
-    return frequencies_dict
+def parse_text(text):
+    """ return frequencies Counter for words in given text """
+    return Counter(parse_words(text))
 
 
-def read_line_by_line_with_counter(filename):
-    with open(filename) as file:
-        return process_lines_with_counter(file)
-
-
-def process_lines_with_counter(lines):
+def parse_lines(lines):
+    """ parse multiple lines """
     counter = Counter()
     for line in lines:
-        counter += Counter(parse_words(line))
+        counter += parse_text(line)
     return counter

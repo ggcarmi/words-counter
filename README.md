@@ -115,7 +115,15 @@ than we send that chunk to aub-process, to handle it.
 when it done, the ,ain process get the result back,
 and merge all the results.
 
-
+for small files (<1MB) run on the file sequentially may be faster(because the processes overhead)
+but for larger files the use of multiproccessing have significant better result
+for example:
+```
+0.3 MB: sequentially(0.027 sec), parallel(0.24 sec)
+12 MB: sequentially(12.6 sec), parallel(1.88 sec)
+46 MB: sequentially(30.7 sec), parallel(5.8 sec)
+```
+i also tested it on 1GB file, and it took 135 sec.
 
 ## Assumptions
 - words are case insensitive - we convert the words to lowercase before saving them.

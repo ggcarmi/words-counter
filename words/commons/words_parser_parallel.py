@@ -1,12 +1,12 @@
 """
-methods for parsed very big files with parallels processes
+methods for parsing very big files with parallels processes
 """
 import multiprocessing
 import os
 import logging
 from collections import Counter
 
-from words.commons.words_parser_common import process_lines_with_counter
+from words.commons.words_parser_common import parse_lines
 
 
 logger = logging.getLogger("words.sub")
@@ -51,6 +51,7 @@ def read_file_in_parallel(file_name):
     due to the option of very large files ( >GB ) we will use muliprocesses """
 
     logger.debug("start process large file in parallel")
+
     # create pool of workers
     pool = multiprocessing.Pool(multiprocessing.cpu_count() - 1)
 
@@ -63,13 +64,13 @@ def read_file_in_parallel(file_name):
         lines_iterator = read_lines_in_chunks(file, lines_buff_size)
 
         # map the work function to the workers, and provide ierator which iterate the lines in chunks
-        results = pool.imap_unordered(process_lines_with_counter, lines_iterator, 1)
+        results = pool.imap_unordered(parse_lines, lines_iterator, 1)
 
         # as soon as we start to receive results (partial dictionaries) from workers - merge them to the result dict
         for counter in results:
             frequencies_counter += counter
 
-    logger.debug("finish process large file in parallel")
+    logger.debug("finished process large file in parallel")
     return frequencies_counter
 
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, jsonify
+from flask import Blueprint
 from flask_restful import Api
 
 from .resources.word import WordApi, WordsApi

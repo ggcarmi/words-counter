@@ -11,7 +11,7 @@ from ..database import database
 def parse_text(data):
     if type(data) != str:
         return {"bad request": "data is not a string"}, 400
-    words_frequencies = common.get_words_frequencies(data)
+    words_frequencies = common.parse_text(data)
     database.save_to_db(words_frequencies)
     return {"success": "saved words from text"}, 201
 
@@ -24,7 +24,7 @@ def parse_url(data):
 
         response = requests.get(url.geturl())
         response.raise_for_status()
-        words_frequencies = common.get_words_frequencies(response.text)
+        words_frequencies = common.parse_text(response.text)
         database.save_to_db(words_frequencies)
         return {"success": "saved words from url"}, 201
     except requests.HTTPError as http_err:

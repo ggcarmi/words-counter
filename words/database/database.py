@@ -1,15 +1,16 @@
+import logging
+
 from ..extensions import db
+
+
+logger = logging.getLogger("words.sub")
 
 
 def get_from_db(key):
     try:
         return db.get(key)
     except Exception as e:
-        print(e)
-
-
-def reset_db():
-    db.flushdb()
+        logger.debug(f"failed get from db {e}")
 
 
 def save_to_db(frequencies_dict):
@@ -20,10 +21,7 @@ def save_to_db(frequencies_dict):
             pipe.execute()
 
     except Exception as e:
-        print(e)
-
-    finally:
-        print()
+        logger.debug(f"failed save to db {e}")
 
 
 def save_to_db_at_once(frequencies_dict):
